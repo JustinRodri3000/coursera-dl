@@ -319,7 +319,7 @@ class OnDemandCourseMaterialItemsV1(object):
                        json=True,
                        class_name=course_name)
         return OnDemandCourseMaterialItemsV1(
-            dom['linked']['onDemandCourseMaterialItems.V2'])
+            dom['linked']['onDemandCourseMaterialItems.v2'])
 
     def get(self, lesson_id):
         """
