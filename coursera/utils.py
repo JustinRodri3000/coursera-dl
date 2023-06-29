@@ -21,7 +21,14 @@ from xml.sax.saxutils import escape, unescape
 
 import six
 from six import iteritems
-from six.moves import html_parser
+
+import sys
+if sys.version_info[0] >= 3:
+    import html
+else:
+    from six.moves import html_parser    
+    html = html_parser.HTMLParser()
+    
 from six.moves.urllib.parse import ParseResult
 from six.moves.urllib_parse import unquote_plus
 
@@ -98,7 +105,7 @@ HTML_UNESCAPE_TABLE = dict((v, k) for k, v in HTML_ESCAPE_TABLE.items())
 
 
 def unescape_html(s):
-    h = html_parser.HTMLParser()
+    h = html
     s = h.unescape(s)
     s = unquote_plus(s)
     return unescape(s, HTML_UNESCAPE_TABLE)
@@ -114,7 +121,7 @@ def clean_filename(s, minimal_change=False):
     """
 
     # First, deal with URL encoded strings
-    h = html_parser.HTMLParser()
+    h = html
     s = h.unescape(s)
     s = unquote_plus(s)
 
